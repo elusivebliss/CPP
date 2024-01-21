@@ -1,0 +1,582 @@
+#include <iostream> //Header File - Input Output stream that has many basic syntax used in cpp stored like data types.
+#include <climits> //Stores limits of various data types like INT_MAX & INT_MIN and predefines them like in overflow & underflow
+#include <string> //Header file required for using getline function. You can also use <bits/stdc++.h> instead, as its the std lib for all std headers including this.
+//#include <bits/stdc++.h> refers to a header 'stdc++.h' in a dir 'bits'. This header file includes all the std headers in c++. But its not practical to use it since including additional unnecessary headers would just increase the compile time causing 'code bloat'
+#include <algorithm> //Header File that stores essential definitions for 'for_each' loop
+#include <cmath> //Header File that stores some built-in functions like sqrt(), max(), min(), round(), etc
+
+using namespace std; //Tells that the namespace used is standard, so as to avoid writing std::cin & std::cout
+
+//Macro = Piece of code in program that is replaced by the value of the macro
+    #define PI 3.14 //No ; needed after macro definition
+
+//Macro with parameter (these work as functions)
+    #define Area(var0) (PI*var0*var0)
+
+//Macro definition for getline to define the limit
+    #define MAX_NAME_LEN 6 //Max length of name !> 6
+
+//Scope of a Variable
+
+    //Global Variable Declaration (can be used anywhere in code)
+        int globalvar = 12;
+
+    //Local Variable Declaration (can only be used inside the function its declared in)
+        void localvar() {
+            int localvar = 25;
+            cout << localvar;
+        }
+
+//Return Statement 
+    void fun(int var65) {
+        cout << "fun has var = " << var65 << endl;
+        return;
+    }
+
+
+//Functiona in C++
+
+    void sumnum(int m, int n){
+        m = 5, n = 6;
+        cout << "Value of sum in func function = " << m+n << endl;
+    }
+
+    void summ(int &p){
+        p = 100;
+        cout << "Value of sum in func function = " << p << endl;
+    }
+
+    //Function with no argument & no return value
+
+    //Function with arguments but no return value
+
+
+int main() {
+    
+    //Demo of Macros
+        cout << "PI = " << PI << endl;
+        int var0 = 1;
+        double area = Area(var0);
+        cout << "Area of circle = " << area << endl;
+
+    //Calling Global Variable
+        cout << "Global Variable is : " << globalvar << endl; 
+
+    //Local Variable
+        cout << "Local Variable is : " << localvar << endl; //This gives some other value as output or error
+
+    //Comments
+
+        //This is a single line comment
+        /*This is a
+        Multi-line comment*/
+
+    //Variables in C++
+
+        //Variable Declaration
+            int var1 = 2; //This is Variable Initialization
+            int var2;
+            cin >> var2; //This is Variable by taking Input
+            cout << "var1 (by variable initialization) = " << var1 << endl;
+            cout << "var2 (by taking input) = " << var2 << endl;
+
+        //Rules for defining variables
+            //1. Beginning != num
+            //2. No special chars except '_'
+            //3. No keywords
+            //4. A != a
+
+        //Data Types in C++
+
+            //Pre-defined data types
+                int var3; //(Integers) 
+                unsigned int var4; //(Only +ve Integers)
+                float var5; //(Decimals upto small range)
+                double var6; //(Decimals upto long ranges)
+                char var7; //(character values) 
+                unsigned char var8; //(character values)
+                bool var9; //(Boolean Values - T(1) or F(0)) 
+                long var10; //(Larger integer values) 
+                unsigned long var11; //(+ve large integers or 0) 
+                short var12; //(small Integer values)
+            
+            //auto Keyword in c++
+                auto var13 = 1; //will set var13 as int type
+                auto var14 = 'a'; //will set var14 as char type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Overflow & Underflow
+
+        //Overflow = Assigned value is more than the range of data type
+            int var18 = INT_MAX; //2147483647
+        //Underflow = Assigned value is less than the range of data type
+            int var19 = INT_MIN; //-2147483648
+            var18 = var18 + 1;
+            var19 = var19 - 1;
+            //After getting out of the limit it returns to its farthest value
+            cout << "INT_MAX = " << var18 << endl; //Overflow : Output = -2147483648
+            cout << "INT_MIN = " << var19 << endl; //Underflow : Output = 2147483647
+    
+    //Typecasting = Converting an expression of a given data type into another data type 
+
+        //Implicit Type Conversion : Automatically performed by the compiler itself without any data loss
+            //Rule = Upgrade data type of all vars to largest data type
+            //(bool < char < short int < int < unsigned int < long < unsigned < long long < float < double < long double)
+            int var20 = 200;
+            char var21 = 'c';
+            float var22 = 0.7;
+            int var23 = var20 + var21; //Here var21 is implicitly converted to int and its value is the ASCII value of 'c' i.e. 99 
+            cout << "int + char = int = " << var23 << endl;
+            float var24 = var22 + var23; //Here var23 is implicitly converted to float i.e. 299.0
+            cout << "int + float = float = " << var24 << endl;
+
+        //Explicit Type Conversion : User defined Typecasting which may lead to data loss
+            double var25 = 5.6;
+            int var26 = (int)var25 + 10; //Here var25 is explicitly converted to int i.e 5
+            cout << "Actual result = 15.6" << endl;
+            cout << "Explicit typecasting result = " << var26 << endl;
+
+    //ASCII Values
+        char A = 'A';
+        char a = 'a';
+        char star = '*';
+        int var27 = (int)A;
+        int var28 = (int)a;
+        int var29 = (int)star;
+        //ASCII value of any character can be found by changing its data type from char to int
+        cout << "ASCII value of A = " << var27 << endl;
+        // A=65, B=66, C=67,... for all capital letters
+        cout << "ASCII value of a = " << var28 << endl;
+        // a=97, b=98, c=99,... for all small letters
+        cout << "ASCII value of * = " << var29 << endl;
+        //Special chars also have ASCII values assigned to them.
+        //Note: When you use comparison operators among chars it'll compare their ASCII value
+        if(A < 'G') {
+            cout << "ASCII value of " << A << " is less than G" << endl;
+        }
+        else {
+            cout << "Sorry the ASCII Value of " << A << " is not less than G" << endl;
+        }
+
+    //Input Output in C++
+
+        //Taking input from console 
+            
+            //Basic Input : By cin, a predefined var data is read from the keyboard with the extraction operator (>>)
+                int var30;
+                cout << "Enter Input = ";
+                cin >> var30;
+                cout << endl;
+                cout << "Output of given input = " << var30 << endl;
+
+            //Getline : A std lib function used to read a string or a line from an input stream
+            
+                //Syntax 1 :
+                    char var31[MAX_NAME_LEN]; //var31 is an array of chars of max possible length 6 acc to the MAX_NAME_LEN (a string object) macro definition
+                    cout << "Enter your name (press $ to complete) = "; //$ is a delimiter. The getline function will stop reading further input after reachin this char
+                    cin.getline (var31, MAX_NAME_LEN, '$'); //Syntax = cin.getline (var, string object, delimitation char)
+                    cout << endl;
+                    cout << "Name = " << var31 << endl;
+
+                //Syntax 2 :
+                    string var32;
+                    getline(cin, var32);
+                    cout << "String = " << var32 << endl;
+
+        //Printing to the console : By cout, a predefined var that displays some output using the insertion operator (<<)
+            cout << "Output is 'Hello World'" << endl;
+
+    //Operators in C++ 
+
+        //Arithmetic Operators : Priority = (B)(O)(D/M)(A/S). If same level priority then solve from left to right.
+            int var33 = 5, var34 = 4;
+            cout << "Arithmetic Operators." << endl;
+            cout << "5 + 4 = " << var33 + var34 << endl; //addition operator
+            cout << "5 - 4 = " << var33 - var34 << endl; //subtraction operator
+            cout << "5 * 4 = " << var33 * var34 << endl; //multiplication operator
+            cout << "5 / 4 = " << var33 / var34 << endl; // division operator
+            cout << "5 % 4 = " << var33 % var34 << endl; //modulus operator
+
+        //Unary Operators : Only 1 operand required
+            int var35 = 7;
+            cout << "negative of 7 = " << -var35 << endl; //Unary minus operator
+            cout << "Not 7? = " << !(var35 == 7) << endl; //Unary NOT operator : Returns T(1) or F(0)
+            cout << "7++ = " << var35++ << endl; //Post-increment operator : Prints and then adds 1
+            cout << "++7 = " << ++var35 << endl; //Pre-increment operator : Adds 1 and then prints
+            cout << "7-- = " << var35-- << endl; //Post-decrement operator : Prints and then subtracts 1 
+            cout << "--7 = " << --var35 << endl; //Pre-decrement operator : Subtracts 1 and then prints
+            cout << "Bitwise complement of 7 = " << ~var35 << endl; //Bitwise Complement Operator : Int of the binary no. we get by interchanging 1's and 0's in the binary form of the given int is binary complement. 
+            //Bitwise complement of N = -(N+1)
+
+        //Relational or Comparison Operators : Always returns a boolean value T(1) or F(0) as its used in comparison
+            cout << "Comparison Operators" << endl; 
+            //While comparison, the condition is written in brackets.
+            int var36 = 20, var37 = 50;
+            cout << "20 == 50 is " << (var36 == var37) << endl; //Equal to operator
+            cout << "20 != 50 is " << (var36 != var37) << endl; //Not equal to operator
+            cout << "20 >= 50 is " << (var36 >= var37) << endl; //Greater than equal to operator
+            cout << "20 <= 50 is " << (var36 <= var37) << endl; //Less than equal to operator
+            cout << "20 > 50 is " << (var36 > var37) << endl; //Greater than operator
+            cout << "20 < 50 is " << (var36 < var37) << endl; //Less than operator
+
+        //Logical Operators : Operates on 2 boolean values to return T(1) or F(0)
+            cout << "Logical Operators" << endl;
+            int var38 = 40, var39 = 60;
+            cout << "(40 == 60) && (40 < 60) is " << ((var38 == var39) && (var38 < var39)) << endl; //Logical AND Operator : intersection of both
+            cout << "(40 == 60) || (40 < 60) is " << ((var38 == var39) || (var38 < var39)) << endl; //Logical OR Operator : Union of both
+            cout << "(!(40 == 60) is " << (!(var38 == var39)) << endl; //Logical NOT Operator : Compliment of that condition
+            /*
+            AND : if both conditions are true, then true, that is, output=1 
+                  else output=0. (intersection)
+            OR : if any one of the two conditions is true, then true, that is, output=1
+                  else output=0. (union)
+            NOT : if the condition if true, then not of that condition will be false, so output=0;
+                  else output=1 (complement)
+            */
+
+        //Bitwise Operators : Used to perform bit manipulation on numbers.
+            int var40 = 6; //Binary representation of 6 = 0110
+            int var41 = 7; //Binary representation of 7 = 0111
+            int var42 = 8; //Binary representation of 8 = 1000
+            cout << "0110 & 0111 = " << (var40 & var41) << endl; //Bitwise AND Operator : (1&1=1), (1&0=0)
+            cout << "0110 | 0111 = " << (var40 | var41) << endl; //Bitwise OR Operator : (1|1=1), (1|0=1), (0|0=0)
+            cout << "~6 = " << (~var40) << endl; //Bitwise NOT Operator : Similar to bitwise complement operator. (6 = 0000000110). Thus (1111111001 = -7)
+            cout << "0110 ^ 0111 = " << (var40 ^ var41) << endl; //Bitwise XOR Operator : Results as 1 if 2 bits are different and 0 if same. (1^1=0), (1^0=1), (0^0=0)
+            cout << "8 << 2 = " << (var42 << 2) << endl; //Left shift operator : adds n zeros to the right binary form. Here n = 2.
+            cout << "8 >> 2 = " << (var42 >> 2) << endl; //Right shift operator : removes n digits from right. Here n = 2.
+            cout << "7 << 2 = " << (var41 << 2) << endl;
+            cout << "7 >> 2 = " << (var41 >> 2) << endl;
+            /*
+            Left & Right shift operators should not be used for -ve nos, otherwise the result can't be defined. (-1<<1)
+            Number can't be shifted more than integer's size, otherwise behviour is undefined (1<<33)
+            */
+
+        //Assignment Operators
+            
+            //+=
+            int var43 = 50;
+            var43 += 20; // var43 = var43 + 20
+            cout << "50 + 20 = " << var43 << endl;
+
+            //-=
+            int var44 = 50;
+            var44 -= 20; // var44 = var44 - 20
+            cout << "50 - 20 = " << var44 << endl;
+
+            //*=
+            int var45 = 50;
+            var45 *= 20; // var45 = var45 * 20
+            cout << "50 * 20 = " << var45 << endl;
+
+            ///=
+            int var46 = 50;
+            var46 /= 20; // var46 = var46 / 20
+            cout << "50 / 20 = " << var46 << endl;
+
+            //%=
+            int var47 = 50;
+            var47 %= 20; // var47 = var47 % 20
+            cout << "50 % 20 = " << var47 << endl;
+
+        //Misc Operators
+
+            //sizeof Operator : determines size of var or data type
+                cout << "Size of int = " << sizeof(var3) << endl;
+                cout << "Size of unsigned int = " << sizeof(var4) << endl;
+                cout << "Size of float = " << sizeof(var5) << endl;
+                cout << "Size of double = " << sizeof(var6) << endl;
+                cout << "Size of char = " << sizeof(var7) << endl;
+                cout << "Size of unsigned char = " << sizeof(var8) << endl;
+                cout << "Size of bool = " << sizeof(var9) << endl; 
+                cout << "Size of long = " << sizeof(var10) << endl;
+                cout << "Size of unsigned long = " << sizeof(var11) << endl;                
+                cout << "Size of short = " << sizeof(var12) << endl;
+
+            //Comma Operator : Evaluates first operand and discards result then evaluates 2nd operand and returns this value
+                int var48, var49;
+                var48 = 100;
+                var49 = (var48 + 10, 99 + var48); //199 - 2nd value is output with brackets
+                cout << "With brackets value of var49 = " << var49 << endl;
+                var49 = var48 + 10, 99 + var48; //110 - 1st value is output without brackets
+                cout << "Without brackets value of var49 = " << var49 << endl;
+
+            //Conditional Operator (?:) :
+                int var50 = 1, var51;
+                var51 = (var50 < 10) ? (var50 + 2) : (var50 + 5); //If (var50 < 10) is true, then return (var50 + 2), otherwise if its false, return (var50 + 5)
+                cout << "Value of expression = " << var51 << endl;
+
+            //Pointer Operator : '&' refers to address (memory location). '*' is a pointer operator
+                int var52 = 1; //1 is stored in a memory location named var52
+                int *var53; //This calls the value stored in the location stored in var53
+                var53 = &var52; //The memory location of var52 (where 1 is stored) is stored in var53
+                cout << "Address of var52 = " << var53 << endl;
+                cout << "Address of var53 = " << &var53 << endl;
+                cout << "Value stored in stored location of var53 = " << *var53 << endl;
+
+    //Conditional Statements in C++ (Decide direction of flow of program execution)
+
+        //If Statement : used to execute a block iff the condition is fulfilled
+            int var54 = 2;
+            if(var54 < 10) {
+                cout << "If (var 54 < 10) then var54 = " << var54 << endl;
+            }
+
+            int var55 = 5;
+            if(var55 < 2) {
+                cout << var55 << endl; //Condition not true. So no output
+            }
+            
+            //Note : If curly braces aren't provided then by default it'll consider the first immediate line below it to be inside its block
+                int var56 = 3;
+                if(var56 > 1)
+                cout << "If (var56 > 1) then var56 = " << var56 << endl;
+            
+        //If-else Statement : used to execute 1 block of code if condition is true and another if the condition is false
+            int var57 = 7;
+            if(var57 == 7) { //Here the == operator plays a very imp role
+                cout << "The if else Condition is True" << endl;
+            } 
+            else {
+                cout << "Sorry the condition is false" << endl;
+            }
+
+        //Nested if Statement : An if statement inside another if statement
+            int var58 = 30;
+            if(var58 < 50){
+                cout << "Var is less than 50" << endl;
+                if(var58 != 0) {
+                    cout << "Var is not 0" << endl;
+                }
+            }
+
+        //If-else-if Statement : Here many conditions are written under if(), else if() and if none is true then the else statement is executed. If no else statement present then no action is taken
+            int var59 = 60;
+            if(var59 < 10) {
+                cout << "Var is less than 10" << endl;
+            }
+            else if(var59 > 10) {
+                cout << "Var is greater than 10" << endl;
+            }
+            else {
+                cout << "None of the above conditions are true" << endl;
+            }
+            //Note : It'll stop reading the further conditions as soon as it finds a true condition and jump out of the if-else block, since its an if else statement. Not more than 1 condition can be true.
+
+        //Switch Statements : Helps when there are multiple conditions
+            char var60 = 'A'; //Switch Var 
+            switch(var60) { //The var for which conditons are checked is written in bracket
+                case 'A': //The possible values stored inside the var mention above is written in ' ' as cases. And it enters the code block iff the condition is true
+                    cout << "Choice is A" << endl; //Code block is this case is true
+                    break; //This cmd tells the compiler to jump out of the switch statements. If u don't mention this break command the compiler will read and execute the further code until it sees a break statement
+                case 'B' :
+                    cout << "Choice is B" << endl;
+                    break;
+                case 'C' :
+                    cout << "Choice is C" << endl;
+                    break;
+                default : //If none of the conditions above are true then the default conditon is executed. If default statement is not mentioned & no cases mentioned are true then there will simply be no output
+                    cout << "None of the above choices" << endl; 
+            }
+            //Note : Expression must be a constant (an int or a char) & break, default statements are optional, However they might affect the output
+
+        //Jump Statements : Used to manipulate the flow of the program if certain conditions are met
+
+            //Break statement : Terminates the loop or switch statements and makes the control return to the first statement after the loop or switch statement
+                int var61 = 2;
+                switch(var61) {
+                    case 1 :
+                        cout << "Its 1" << endl;
+                        break;
+                    case 2 : 
+                        cout << "Its 2" << endl;
+                        break;
+                    default :
+                        cout << "Its nothing" << endl;
+                }
+                
+            //Continue statement : Used to skip the current iteration of the loop & control of the program goes to the next iteration
+                int var62 = 6;
+                for (int i = 0; i < var62; i++) {
+                    if(i == 2) {
+                        continue; //It will skip the iteration when i = 2 and go to i = 3
+                    }
+                    cout << "i = " << i << endl;
+                }
+
+            //Goto statement : Used to alter the normal sequence of program execution by transferring control to some other part of the program. This statement can be used to jump anywhere within a function.
+                int var63 = 5;
+                if(var63 % 2 == 0)
+                    goto printeven; //Here it sends the compiler to the mentioned codeblock
+                else 
+                    goto printodd; //Here too
+                //The below block that is the part where goto sends compiler to continue can be written either below the goto statement or above it
+                printeven : //This is the syntax of how to write the codeblock to which goto will redirect the compiler
+                    cout << "Even Number" << endl;
+                printodd :
+                    cout << "Odd Number" << endl;
+                //goto statement usage is considered bad these days as continue and break can do its work
+
+            //Return statement : Used to terminate a function's execution or to specify the value to be returned by the function
+                int var64 = 1;
+                fun(var64);
+                return 0; // Can be used multiple times 
+
+    //Loops : Used when we need to execute a block of statements repeatedly
+
+        //Entry Controlled Loops : The test condition is tested before entering the loop body.
+
+            //For loop : Used to write a loop that's executed a specific number of times
+                cout << "For Loop :" << endl;
+                for(/*Initialization*/int i = 1; /*Condition expression*/ i <= 5; /*Update expression*/ i++) { //
+                    cout << "Hello World - " << i << endl; //The compiler knows by the syntax that it has to update the expression after executing the loop once 
+                    //Once initialized the compiler will start with i = 1, check if condition i <= 5 is true for 1, if true it'll update i = i++ after printing i in the code block , next time it comes back to check the condition with the updated value that is 2 and again the same process repeats until the condition comes out to be false
+                }
+                
+            //While loop : Here the condition will be evaluated first and if it returns true then the code block inside look will execute repeatedly until the condition returns false, and if it does then it'll jump out of the loop and go to the next statement of the code
+                cout << "While Loop :" << endl;
+                int i = 1; //Initialization
+                while(i <= 5) {
+                    cout << "Hello World - " << i << endl;
+                    i++; //Here the update expression needs to be put inside the loop after all the cmds are done otherwise the loop will execute infinite times making it an infinite loop
+                }
+
+        //Exit Controlled Loops : The test condition is tested at the end of the loop body, which is why the loop body will execute at least once, irrespective of whether the condition is true or false
+
+            //Do-while loop : Same as while loop except that the condition is tested at the end of the loop body which is why here the loop is execute atleast once even if the condition is false
+                int i = 1; //Initialization
+                cout << "do-while Loop :" << endl;
+                do {
+                    cout << "Hello World - " << i << endl; 
+                    //Will give some output and print it then check condition below which if false it'll jump outta loop
+                    i++; //Update expression
+                } 
+                while(i < 1); //Condition
+
+        //For_each Loop : A function of <algorithm> header file that does the same work as the above mentioned loops over each of the container elements and it makes the code more readable
+            /*
+            int arr[5] = {1, 2, 3, 4, 5};
+            cout << "for_each loop :" << endl;
+            for(int x: arr) { //Keyword for can also instead be used for this loop
+                cout << x << endl;
+            }
+            int print(int n) {
+                cout << "Hello World - " << n << endl;
+            }
+            for_each(arr, arr + 5, print);
+            */
+
+    /*
+    //Functions in C++ : A black box that can take specific inputs as its parameters and output a value that is the return value. A function runs only as many times as called. Every C++ program has atleast one function main().
+                         //written before the main function and called inside the main function when needed
+        
+        //Calling the function declared before main()
+            cout << sum(50,60); //Function being called = callee = sum, function which calls the callee = caller = main
+
+        //Types of functions
+
+            //Built-in Functions : Library functions which're not required to be declared, raised and defined and are already present in the C++ libs like iostream, cmath, etc
+                
+                //max()
+                int maximum = max(100, 30);
+                cout << "max(100,30) = " << maximum;
+
+                //min()
+                int minimum = min(100,30);
+                cout << "min(100,30) = " << minimum;
+
+                //sqrt()
+                double root = sqrt(144);
+                cout << "sqrt(144) = " << root;
+
+                //length()
+                string var66 = "Coding Ninjas";
+                cout << "length(Coding Ninjas) = " << var66.length(); 
+
+                //toupper()
+                string var67 = "ammy";
+                for(int i = 0; i < var67.length(); i++) {
+                    putchar(toupper(var67[i]));
+                }
+
+                //pow()
+                cout << "pow(2,3) = " << pow(2,3);
+
+            //User-defined Functions : Made by users
+
+                //Function with no argument & no return value : No arg = no calling function data recd, no return value = calling function recieves none of the called function data 
+                    //void abc(); // Function declaration
+                    //abc(); //Function Call
+                    
+                    void abc() { //Function definition
+                        int var68 = 1;    
+                        cout << "Var = " << var68; 
+                    }
+                              
+
+                //Function with arguments but no return value : Arg present = Recieves data from the calling function
+                    void xyz(int var69) {
+                        var69 = 12;
+                        cout << "var = " << var69;
+                    }
+
+                //Function with no argument but returns a value : No arg but return a value
+                    int sumofnums() {
+                        int var70 = 10, var71 = 20;
+                        int sum = var70 + var71;
+                        return sum;
+                    }
+                    int var70 = 1, var71 = 2;
+                    int sum1 = sumofnums();
+                    cout << "1 + 2 = " << sum1;
+
+                //Function with arguments & return value
+                    int sumnum(int var72, int var73) {
+                        int sum = var72 + var73;
+                        return sum;
+                    }
+                    int var72 = 1, var73 = 2;
+                    int sum2 = sumnum();
+                    cout << "1 + 2 = " << sum2;
+        */
+
+        //Passing Parameters to Functions.
+            //Formal Parameters : Parameters written in the function before main function (eg: m and n in function sumnum)
+            // Actual Parameters : Parameters used when the function is called inside the main fucntion (eg: x and y in the below code)
+            int x = 10, y = 20;
+            sumnum(x, y);
+
+            //Pass by Value : Here, values of actual parameters are copied to the function’s formal parameters, and the two types of parameters are stored in different memory locations. Any changes made inside functions are not reflected in the actual parameters of the caller. 
+            int a = 1, b = 2;
+            sumnum(a, b);
+            cout << "Value of sum in main function = " << a+b << endl;
+
+            //Pass by Reference: Here, both actual and formal parameters refer to the same location, so any changes made inside the function are reflected in the actual parameters of the caller.
+            int p = 50;
+            summ(p);
+            cout << "Value of sum in main function = " << p << endl;
+
+        //Function Overloading : 
