@@ -4,7 +4,7 @@
 //#include <bits/stdc++.h> refers to a header 'stdc++.h' in a dir 'bits'. This header file includes all the std headers in c++. But its not practical to use it since including additional unnecessary headers would just increase the compile time causing 'code bloat'
 #include <algorithm> //Header File that stores essential definitions for 'for_each' loop
 #include <cmath> //Header File that stores some built-in functions like sqrt(), max(), min(), round(), etc
-
+#include <cstdlib> //Stores malloc() and free() functions.
 using namespace std; //Tells that the namespace used is standard, so as to avoid writing std::cin & std::cout
 
 //Macro = Piece of code in program that is replaced by the value of the macro
@@ -103,31 +103,6 @@ int main() {
             //auto Keyword in c++
                 auto var13 = 1; //will set var13 as int type
                 auto var14 = 'a'; //will set var14 as char type
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //Overflow & Underflow
 
@@ -467,6 +442,7 @@ int main() {
         //Exit Controlled Loops : The test condition is tested at the end of the loop body, which is why the loop body will execute at least once, irrespective of whether the condition is true or false
 
             //Do-while loop : Same as while loop except that the condition is tested at the end of the loop body which is why here the loop is execute atleast once even if the condition is false
+                /*
                 int i = 1; //Initialization
                 cout << "do-while Loop :" << endl;
                 do {
@@ -475,6 +451,7 @@ int main() {
                     i++; //Update expression
                 } 
                 while(i < 1); //Condition
+                */
 
         //For_each Loop : A function of <algorithm> header file that does the same work as the above mentioned loops over each of the container elements and it makes the code more readable
             /*
@@ -564,19 +541,386 @@ int main() {
         */
 
         //Passing Parameters to Functions.
+            
             //Formal Parameters : Parameters written in the function before main function (eg: m and n in function sumnum)
+            
             // Actual Parameters : Parameters used when the function is called inside the main fucntion (eg: x and y in the below code)
             int x = 10, y = 20;
             sumnum(x, y);
 
             //Pass by Value : Here, values of actual parameters are copied to the function’s formal parameters, and the two types of parameters are stored in different memory locations. Any changes made inside functions are not reflected in the actual parameters of the caller. 
-            int a = 1, b = 2;
+            /*int a = 1, b = 2;
             sumnum(a, b);
             cout << "Value of sum in main function = " << a+b << endl;
+            */
 
             //Pass by Reference: Here, both actual and formal parameters refer to the same location, so any changes made inside the function are reflected in the actual parameters of the caller.
             int p = 50;
             summ(p);
             cout << "Value of sum in main function = " << p << endl;
 
-        //Function Overloading : 
+        //Function Overloading : Same function name, diff parameters. There are 2 ways function can be overloaded - by changing no. of arguments or by changing the data type. This is related to compile-time polymorphism.
+            
+            //By changing the number of arguments
+                /*
+                int sum(int a, int b){
+                    return a+b;
+                }
+
+                int sum(int a, int b, int c){
+                    return a+b+c;
+                }
+
+                int main() {
+                    cout << sum(1,2) << endl;
+                    cout << sum(1,2,3) << endl;
+                }
+                */
+            
+            //By changing the data type of arguments
+                /*
+                int sum(int a, int b){
+                    return a+b;
+                }
+
+                double sum(double a, double b){
+                    return a+b;
+                }
+
+                int main() {
+                    cout << sum(1,2) << endl;
+                    cout << sum(1.5,2.1) << endl;
+                }
+                */
+
+            //Note : Functions can't be overloaded if they differ only in the return type
+                /*
+                int test(int a){}
+                double test(int b){}
+                */
+                //The above program will throw an error
+
+            //Default Arguments : Values provided in a function declaration. This value is taken unless another value is provided in the main function for the respective var
+                //They are defined to the rightmost side of parameter list
+                /*
+                int sum(int a, int b, int c = 0, int d = 0){
+                    return (a+b+c+d);
+                }
+
+                int main() {
+                    cout << sum(1,2) << endl; //output = 3, so c = 0, d = 0
+                    cout << sum(1,2,1) << endl; //output = 4, c = 1, d = 0
+                    cout << sum(1,2,1,1) << endl; //output = 5, c = 1, d = 1
+                }
+                */
+
+   //Pointers in C++ : Variable that stores the address of other variable. 
+        int one = 1;
+        int *pnt; //an integer is stored in the address that is pointed to by pointer p
+        pnt = &one; //& represents the address of the variable
+        cout << "Address of variable one = " << pnt << endl;
+        cout << "Address of pointer p = " << &pnt << endl;
+
+        //Dereference Operator (*) : Just as '&' means 'address of', dereference operator or '*' means 'value pointed by'. Don't confuse it with the pointer declaration syntax that is different.
+        int first = 1, sec = 2;
+        char third = 'a';
+        int *q1, *q2;
+        char *q3;
+        q1 = &first; //q1 = address of first
+        q2 = &sec; //q2 = address of sec
+        q3 = &third; //q3 = address of third
+        cout << "first = " << *q1 << endl; //*q1 = value pointed to by q1 = 1
+        cout << "sec = " << *q2 << endl; //*q2 = value pointed to by q2 = 2
+        cout << "third = " << *q3 << endl; //*q3 = value pointed to by q3 = a
+
+        //Pointer Arithmetic :  Only Addition and subtraction are the arithmetic operators allowed for pointers. And on adding n to a pointer of any data type it will add (n*size of data type) to the memory location of the pointer
+            char *mychar;
+            short *myshort;
+            long *mylong;
+            char ch = 'a';
+            short sh = 1;
+            long lo = 10;
+            mychar = &ch;
+            myshort = &sh;
+            mylong = &lo;
+            *mychar = *mychar + 1;
+            *myshort = *myshort + 1;
+            *mylong = *mylong + 1;
+            cout << "*mychar + 1 = " << *mychar << endl;
+            cout << "*myshort + 1 = " << *myshort << endl;
+            cout << "*mylong + 1 = " << *mylong << endl;
+            cout << "*mylong - 2 = " << (*mylong - 2) << endl;
+
+        //Types of pointers in c++
+
+            //Null Pointers : Points towards nothing. Used when we don't have the address
+                //Note : Uninitialized pointer leads to segmentation faults thus we use NULL if we don't have the address
+                int *mynull= NULL; //contains garbage value
+                //Null is a constant with value 0. thus it can also be written as
+                //int *mynull = 0;
+                cout << "Null Pointer = " << mynull << endl;
+
+            //Double Pointers : first pointer stores address of var and second pointer stores address of first pointer. Thus a pointer to a pointer is double pointer.
+                int dob = 22;
+                int *mydob1 = &dob; //pointer
+                int **mydob2 =  &mydob1; //pointer-to-pointer = double pointer
+                cout << "address of dob = " << &dob  << endl;
+                cout << "address of dob = " << mydob1 << endl;
+                cout << "address of dob = " << *mydob2 << endl;
+                cout << "address of mydob1 = " << &mydob1 << endl;
+                cout << "address of mydob1 = " << mydob2 << endl;
+                cout << "value stored in dob = " << dob << endl;
+                cout << "value stored in dob = " << *mydob1 << endl;
+                cout << "value stored in dob = " << **mydob2 << endl;
+
+            //Void Pointers : can store the address of a var of any data type. Cannot be dereferenced but can be done using typecasting. Pointer arithmetic is not possible due to lack of concrete value or size
+                void *myvoid;
+                int vd = 15;
+                myvoid = &vd;
+                cout << "Address of variable vd = " << &vd << endl;
+                cout << "Value/address stored in pointer = " << myvoid << endl;
+
+            //Wild Pointers : Pointer that is declared but not initialized. Thus they point to any random memory location
+                int *wild;
+                *wild = 5; //wild pointer = not initialized but declared
+                int *nonwild; //wild pointer till here
+                int nw = 100;
+                nonwild = &nw; //non wild pointer
+                cout << " address of 5 = " << wild << endl;
+                cout << " address of 100 = " << nonwild << endl;
+
+            //Dangling Pointer : Pointer pointing to a memory location that has been freed or deleted. There are 3 ways where pointer acts as dangling pointer
+
+                //Function Call : Pointer pointing to the local var becomes dangling when the local var is not static
+                    /*
+                    int *fn() {
+                        int x = 10;
+                        return &x;
+                    } 
+                    int main(){
+                        int *p = fn(); //p points to something which isn't valid anymore
+                        cout << "function call dangling pointer = " << *p << endl;
+                    }
+                    */
+            
+                //Deallocation of memory : deallocation of a memory pointed by a pointer causes a dangling pointer.
+                    //dynamic memory allocation
+                    int *dom = (int *)malloc(sizeof(int)); //memory is allocated manually by a program for an int by malloc function
+                    free(dom); //dom becomes a dangling point after calling free()
+                    cout << "deallocation dangling pointer = " << *dom <<endl;
+                    dom = NULL; //now p no more a dangling poiner
+                    cout << "not a dangling point = " << *dom << endl;
+
+                //Variable goes out of scope : When a pointer goes out of scope where it is valid, then it becomes a dangling pointer.
+                    /*
+                    void main(){
+                        //any code statements
+                        int ch;
+                        ptr = &ch;
+                    }
+                        //here ptr is dangling pointer
+                    */
+
+        //Memory Allocation :
+
+            //Address Typecasting : typecasting means assigning one type of data to another type, like storing on integer value to a char data type.
+
+                //Implicit typecasting 
+                    int imp = 65;
+                    char ximp = imp;
+
+                //Explicit typecasting
+                    int *exp = &imp;
+                    char *expl = (char *) exp;
+                    //char *expl = exp; //It won't work as we are trying to store an int pointer into a char value
+
+            //Reference : & is the reference operator which means address of operator. This operator is used to copy the values of any variable and guarantee that the reflected changes will also be visible in the copied variable.
+
+                //Pass by value : No change reflected, only value is copied in the beginning.
+                    int pval1 = 5; //5 stored in pval1 = original
+                    int pval2 = pval1; //5 stored in pval2 = original
+                    pval1++; //5+1=6 stored in pval1 but no changes reflected in pval2 = updates 
+                    cout << "pval2 on pval1++ = " << pval2 << endl; //output = 5 = not updated
+
+                //Pass by reference : Change is reflected along with the copied value.
+                    int pref1 = 5; //5 stored in pref1 = original
+                    int &pref2 = pref1; //pref2 and pref1 are pointing to the same address and changes in any one with be reflected in both of them = original
+                    pref1++; //updated
+                    cout << "pref2 on pref1++ = " << pref2 << endl; //updated
+                    //Advantages : less memory storage, changes reflected easily.
+
+        //Dynamic Memory Allocation : memory allocation done at the run-time instead of compile-time. Used when the memory/size required to store the data depends on some data that is provided during the run-time of the program.
+
+            //malloc() function = memory allocation function : gives u a void pointer from the heap that can be typecasted based on the data type (reserves a block of memory with the given amt of bytes) 
+                int *mloc;
+                mloc = (int*) malloc(3* sizeof(int)); //3 values taking the size of int each can be stored in the void pointer (thus 3*size) and then (int*) then typecastes the void pointer to an int pointer.
+                //If the reqd space is greater than the heap, that is space is insufficient, memory allocation fails and it returns a NULL pointer where all values are initialized to garbage values.
+
+            //calloc() function = contiguous function : gives u a void pointer from the heap that can be typecasted based on the data type (reserves n block of memory with the given amt of bytes)
+                int *cloc;
+                cloc = (int*) calloc(10, sizeof(int)); //10 blocks of size of int are taken from the heap
+                //If the reqd space is greater than the heap, that is space is insufficient, memory allocation fails and it returns a NULL pointer where all values are initialized to 0.   
+
+            //realloc() function = reallocation function : Previously allocation memory is reallocated for the new action if the previous allocations are no more required. Size of previously allocated memory can be changed using this function.
+                /*
+                int *rloc;
+                rloc = (int*) malloc(3* sizeof(int)); //memory is allocated to store int
+                rloc = (char*) realloc(rloc, sizeof(char)); //the same memory is reallocated to char now
+                */
+
+            //free() = free allocated memory function : It frees the memory that was dynamically allocated previously but isn't reqd anymore thus freeing the memory being used from the heap.
+                /*
+                free(cloc);
+                free(rloc);
+                */
+            //Stack = compile-time memory allocation : memory releases itself as the scope of the var is over
+            //Heap = Dynamic memory allocation : memory needs to be released manually otherwise it keeps accumulating. Global vars are stored here.
+
+            //new keyword : used to declare dynamic memory in C++
+                int *knew; //knew is a normal pointer stored in normal memory
+                knew = new int; //knew becomes a var allocated dynamic memory
+                int *karr; //pointer declaration of array
+                karr = new int[5];//array stores 5 vars.
+
+
+            //delete keyword : used to free memory if one doesn't wanna use the free() function
+                delete knew;
+                delete [] karr;
+
+            //Dynamic Memory Allocation for 2D Arrays : Suppose we're creating a 2D array of size n*m
+                /*
+                int **arr2d; //there are n arrays of size m each (m elements)
+                arr2d = new int*[n]; //thus n is the size of pointer of pointers that is the length of an array of pointers from which each pointers points to another array of length m 
+                for(int i=0; i<n; i++){
+                    arr2d[i] = new int[m]; //each element of arr2d of n elements that are pointers is accessed via loop and a new array of length m is stored in each of them. lets say 0th element out of n from the arr2d is accessed, then that 0th element is a pointer that points to a different array of m elements and so on for 1st, 2nd...(n-1)th element
+                }
+                //Now this 2D array takes some dynamic memory which we need to release since the array is no longer needed
+                for(int i=0; i<n; i++){
+                    delete[] arr2d[i]; //all m elements are deleted from each of the n pointers thus the n pointers become null pointers
+                }
+                delete[] arr2d; //the array of n pointers is also deleted
+                */
+
+        //Static Memory Allocation : amt of memory to be allocated is known beforehand at the time of compilation. Once the memory is allocated, it can't be deallocated during the program run thus leading to wastage of storage space.
+            int smarr1[100]; //100=const
+            const int size = 5; //once memory is allocated, it can't change, thus it should be a constant, unlike in dynamic memory allocation
+            int smarr2[size]; //5 is const
+
+        //Static = used for arrays generally
+        //Dynamic = used for linked list generally
+
+        //Macros and the global variable : both are declared right after the header files and before the main function. Global var can be changed further if its value is modified in the main function. Thus we use macros, they are not changeable.
+            /*
+            #define pi 3.14 //# is the sign of macro, define locks the value making it unchangeable
+            */
+        
+        //Advantages :
+        
+            //macros : prevents extra storage as no new var is declared in compiler memory
+            //global var : same var can be modified multiple time depending on diff functions, saves time for passing the values by reference in functions
+
+        //Inline & Default Arguments : 
+        
+            //Inline : Normal function uses time as it pauses some portion of code to complete, unless it's done we can't move ahead, it also creates a copy of vars each time while calling a function. Thus inline functions replace function call with its defintion when invoked, hence the function call gets replaced with the function declaration thus preventing the pause of the code.
+                //inline sumnum(2,3);
+                //Disadvantage : code becomes bulky, time taken to copy code can be huge
+
+            //Default : Used when we are unsure about the value to be passed into the function as an argument. Thus if no value is passed, then this value is considered. Sort of like a dummy value
+                /* Unsure of 2 or 3 numbers are to be added.
+                int sum(int a, int b, int c = 0){ //here c is default arg, thus must be declared as the rightmost set of parameters
+                return a+b+c;
+                }
+                int main(){
+                    int a = 2; b = 3; c = 4;
+                    cout << sum(a,b) << endl; //here since c isn't provided its default value will be taken that is 0, thus output = 5
+                    cout << sum(a,b,c) << endl; //here c is provided as 4 so it will be 9
+                }
+                */
+
+        //Constant Variables : if we declare any keyword as constant it can't be changed throughout the program. The const var needs to be assigned during initialization only, else it'll store garbage values that can't be changed further.
+            const int cnst = 50;
+
+        //Storage of vars :
+        //local vars = stack
+        //global vars, static vars, program instructions = permanent storage area
+        //the memory space between these 2 regions = heap = dynamic vars
+
+    //Exception Handling : An exception is an unwanted event that occurs during the execution of the program. It disrupts the normal flow of the program. Exceptions are recoverable. NullPointerException, IOException, ArithmeticException are some examples of exceptions.
+        
+        //Exceptions in C++ can occur due to the following reasons - Incorrect data entered by the user, e.g., dividing a no. by zero; Opening a file that doesn’t exist in the program; Network connection problem; Server down problem.
+        //Exception handling is a mechanism in C++ used to handle the run time error so that the program’s normal flow can be maintained. If an exception occurs in your code, then the rest of the code is not executed. Therefore, the C++ compiler creates an exception object. This exception object directly jumps to the default catch mechanism; there is a default message that prints on the screen and our program gets terminated.
+        // Suppose in our program there are many code lines and an exception occurs midway, then the code after the exception will not execute, and the program will terminate, and we get a system-generated error message which is not understandable to a user. By exception handling mechanism, all the statements in our program will execute. The program’s normal flow will be maintained and generates a user-friendly message rather than a system-generated error message. That is why we use Exception Handling in C++.
+        //Errors: Most of the time, errors are not caused by our programs. These are due to a lack of system resources. Errors are not recoverable. For example, if OutOfMemory occurs in our program, we can’t do anything, and the program will terminate abnormally.
+        //Exceptions != Errors
+
+        //Exception Handling Keywords :
+
+            //try : A try block identifies a block of code for which particular exceptions will be activated. One or more catch blocks follow it.
+            //catch: A program catches an exception with an exception handler at the place in a program where you want to handle the problem. The catch keyword indicates the catching of an exception.
+            //throw: A program throws an exception when a problem shows up. This is done using a throw keyword.
+
+            try { //it will try the code
+                int umar = 10;
+                if(umar>=18){
+                    cout << "mature umar" << endl;
+                }
+                else{
+                    throw(umar); //it will throw an exception 
+                }
+            }
+            catch(int umar){ //it will catch the thrown umar thats in int form and generate the reply according to the instructions.
+                cout << "Sorry you are still immature" << endl;
+                cout << "Your age is " << umar << endl;
+            }
+
+            //Generating error code
+                try{
+                    int kitne = 5;
+                    if(kitne>=6){
+                        cout << "Chalega" << endl;
+                    }
+                    else{
+                        throw -1; //To organize the type of error we can also throw a particular reference no. instead of age like an error code
+                    }
+                }
+                catch(int num){ //
+                    cout <<"Sorry, you aren't eligible" << endl;
+                    cout << "Error: " << num << endl;
+                }
+    
+            //Handle any type of exceptions : (3 dots syntax)
+                try{
+                    int kitne = 5;
+                    if(kitne>=6){
+                        cout << "Chalega" << endl;
+                    }
+                    else{
+                        throw "Error"; //To organize the type of error we can also throw a particular reference no. instead of age like an error code
+                    }
+                }
+                catch(...){ //catches all types of throw values
+                    cout <<"Sorry, you aren't eligible" << endl;
+                }
+            
+            //Note:
+            //When an exception is thrown, lines of try block after the throw statement aren't executed.
+            //When an exception is caught, the code after the catch block is executed. Catch blocks are generally written at the end through.
+            //It is a compiler error to put a catch-all block before any other catch. The catch(...) must be the last catch block.
+
+            //Standard Exceptions :
+            //standard exceptions are defined in the <exception> class that we can use inside our programs. The arrangement of the parent-child class hierarchy is shown below:
+            //std::exception - Parent class of all the standard C++ exceptions.
+            //logic_error - An exception that theoretically can be detected by reading the code
+            //domain_error -This is an exception thrown after using a mathematically invalid domain.
+            //invalid argument - Exception due to invalid argument.
+            //out_of_range - Exception due to out of range, i.e., size requirement exceeds allocation, Thrown by at method.
+            //length_error - Exception due to length error.
+            //runtime_error - Exception happens during runtime; this is an exception that cannot be detected via reading the code.
+            //range_error - This occurs when you try to store a value that is out of range.
+            //overflow_error - Exception due to arithmetic overflow errors.
+            //underflow_error - Exception due to arithmetic underflow errors
+            //bad_alloc - The new keyword throws this exception.
+            //bad_cast - This is an exception thrown by dynamic_cast.
+            //bad_exception - Exception is specially designed to be listed in the dynamic-exception-specifier; this is a useful device to handle unexpected exceptions in a C++ program.
+            //bad_typeid - This is an exception thrown by typeid.
+}
